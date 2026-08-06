@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output (gets rebuilt inside Docker)
+dist/
+
+# Dev tooling
+.git/
+.gitignore
+*.md
+
+# Env files (never ship secrets into an image)
+.env*
+
+# Editor
+.vscode/
+.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
