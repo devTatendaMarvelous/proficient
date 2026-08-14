@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Experiences } from './components/Experiences';
+import { BeyondVictoriaFalls } from './components/BeyondVictoriaFalls';
 import { Gallery } from './components/Gallery';
 import { About } from './components/About';
 import { WhyChooseUs } from './components/WhyChooseUs';
@@ -44,6 +45,7 @@ function App() {
       <Navbar onScrollTo={scrollToSection} />
       <Hero onScrollTo={scrollToSection} />
       <Experiences onScrollTo={scrollToSection} />
+      <BeyondVictoriaFalls onScrollTo={scrollToSection} />
       <Gallery />
       <About />
       <WhyChooseUs />

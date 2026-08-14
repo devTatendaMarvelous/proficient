@@ -27,6 +27,7 @@ export function Navbar({ onScrollTo }: NavbarProps) {
   const navItems = [
     { name: 'Home', target: 'home' },
     { name: 'Experiences', target: 'experiences' },
+    { name: 'Beyond', target: 'beyond' },
     { name: 'Gallery', target: 'gallery' },
     { name: 'About', target: 'about' },
     { name: 'Contact', target: 'contact' },

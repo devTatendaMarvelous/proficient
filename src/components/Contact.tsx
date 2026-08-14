@@ -1,6 +1,29 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle2, X } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, X, MessageCircle } from 'lucide-react';
+
+const EMAIL = 'info@proficientsabaescapes.com';
+
+const CONTACTS = [
+  {
+    label: 'WhatsApp — Paul',
+    display: '+27 71 756 7996',
+    href: 'https://wa.me/27717567996',
+    icon: MessageCircle,
+  },
+  {
+    label: 'Call — Paul',
+    display: '+263 77 239 0313',
+    href: 'tel:+263772390313',
+    icon: Phone,
+  },
+  {
+    label: 'Proficient WhatsApp & Call',
+    display: '+263 71 843 6709',
+    href: 'https://wa.me/263718436709',
+    icon: Phone,
+  },
+];
 
 const ACTIVITIES = [
   'Helicopter Flight',
@@ -11,6 +34,7 @@ const ACTIVITIES = [
   'Sunset River Cruise',
   'Vintage Safari Train',
   'The Boma Dinner',
+  'Beyond Victoria Falls',
 ];
 
 export function Contact() {
@@ -40,8 +64,6 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Construct the mailto link parameters
-    const emailTo = 'proficientsabaescapes@gmail.com';
     const subject = encodeURIComponent(`Inquiry from ${formData.name}`);
     const body = encodeURIComponent(
       `Name: ${formData.name}\n` +
@@ -52,23 +74,18 @@ export function Contact() {
       `Message:\n${formData.message}`
     );
 
-    // Open mailto client
-    window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
-
-    // Open success popup
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // Reset form
     setFormData({ name: '', email: '', phone: '', country: '', message: '' });
     setSelectedActivities([]);
   };
 
   return (
     <section id="contact" className="py-24 sm:py-32 bg-white relative">
-      {/* Background shape */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/2 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -81,17 +98,16 @@ export function Contact() {
                 Start Planning
               </span>
               <h2 className="text-3xl sm:text-5xl font-heading font-bold text-charcoal mb-6">
-                Let\'s Plan Your Escape
+                Let's Plan Your Escape
               </h2>
               <div className="w-16 h-1 bg-accent mb-6 rounded-full" />
               <p className="text-base sm:text-lg text-charcoal/70 font-body font-light leading-relaxed mb-8">
                 Ready to customize your journey? Fill out the form or contact us directly. Our local specialists will respond with a bespoke quote within 24 hours.
               </p>
 
-              {/* Direct Info List */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <a
-                  href="mailto:proficientsabaescapes@gmail.com"
+                  href={`mailto:${EMAIL}`}
                   className="flex items-center gap-4 group p-4 rounded-2xl hover:bg-warm-white transition-colors"
                 >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
@@ -99,19 +115,32 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="text-[10px] font-button font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">Email Us</h4>
-                    <p className="text-sm font-button font-medium text-charcoal">proficientsabaescapes@gmail.com</p>
+                    <p className="text-sm font-button font-medium text-charcoal">{EMAIL}</p>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-4 p-4 rounded-2xl">
-                  <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-button font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">WhatsApp / Call</h4>
-                    <p className="text-sm font-button font-medium text-charcoal">+263 772 957 563</p>
-                  </div>
-                </div>
+                {CONTACTS.map((contact) => {
+                  const Icon = contact.icon;
+                  return (
+                    <a
+                      key={contact.display}
+                      href={contact.href}
+                      target={contact.href.startsWith('http') ? '_blank' : undefined}
+                      rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="flex items-center gap-4 group p-4 rounded-2xl hover:bg-warm-white transition-colors"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-[10px] font-button font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">
+                          {contact.label}
+                        </h4>
+                        <p className="text-sm font-button font-medium text-charcoal">{contact.display}</p>
+                      </div>
+                    </a>
+                  );
+                })}
 
                 <div className="flex items-center gap-4 p-4 rounded-2xl">
                   <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent-dark flex items-center justify-center">
@@ -124,21 +153,6 @@ export function Contact() {
                 </div>
               </div>
             </div>
-
-            {/* Social Icons Placeholders */}
-            <div className="mt-12 pt-8 border-t border-charcoal/5">
-              <h4 className="text-[10px] font-button font-bold text-charcoal/40 uppercase tracking-widest mb-4">Connect With Us</h4>
-              <div className="flex gap-4">
-                {['Facebook', 'Instagram', 'Twitter', 'TripAdvisor'].map((social, idx) => (
-                  <span
-                    key={idx}
-                    className="px-4 py-2 rounded-full border border-charcoal/10 text-xs font-button text-charcoal hover:border-primary hover:text-primary cursor-pointer transition-colors duration-300"
-                  >
-                    {social}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Custom Form */}
@@ -148,7 +162,6 @@ export function Contact() {
               className="p-8 sm:p-10 rounded-3xl bg-warm-white border border-charcoal/5 shadow-xl"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                {/* Name */}
                 <div className="flex flex-col">
                   <label htmlFor="name" className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-2">
                     Name
@@ -165,7 +178,6 @@ export function Contact() {
                   />
                 </div>
 
-                {/* Email */}
                 <div className="flex flex-col">
                   <label htmlFor="email" className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-2">
                     Email Address
@@ -184,7 +196,6 @@ export function Contact() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                {/* Phone */}
                 <div className="flex flex-col">
                   <label htmlFor="phone" className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-2">
                     Phone Number
@@ -200,7 +211,6 @@ export function Contact() {
                   />
                 </div>
 
-                {/* Country */}
                 <div className="flex flex-col">
                   <label htmlFor="country" className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-2">
                     Country
@@ -217,7 +227,6 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Activity Selection Chips */}
               <div className="mb-6">
                 <label className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-3 block">
                   Select Interested Activities
@@ -243,7 +252,6 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Message */}
               <div className="flex flex-col mb-8">
                 <label htmlFor="message" className="text-xs font-button font-bold text-charcoal/60 uppercase tracking-wider mb-2">
                   Tell Us About Your Ideal Trip
@@ -259,7 +267,6 @@ export function Contact() {
                 />
               </div>
 
-              {/* Submit CTA */}
               <button
                 type="submit"
                 className="w-full py-4 rounded-xl bg-primary hover:bg-primary/95 text-white font-button font-bold uppercase tracking-widest text-xs shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-all flex items-center justify-center gap-2 cursor-pointer group"
@@ -272,7 +279,6 @@ export function Contact() {
         </div>
       </div>
 
-      {/* Success Glass Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -305,7 +311,7 @@ export function Contact() {
                 We have generated your inquiry form and triggered your default email client. 
                 <br /><br />
                 If your client did not open, please copy your request details and send them directly to:
-                <strong className="block text-primary text-sm mt-2 font-button font-semibold">proficientsabaescapes@gmail.com</strong>
+                <strong className="block text-primary text-sm mt-2 font-button font-semibold">{EMAIL}</strong>
               </p>
 
               <button
