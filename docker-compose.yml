@@ -1,0 +1,7 @@
+services:
+  proficient:
+    image: proficient
+    container_name: proficient
+    ports:
+      - "9078:80"
+    restart: unless-stopped

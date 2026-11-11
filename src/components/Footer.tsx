@@ -5,7 +5,7 @@ interface FooterProps {
   onScrollTo: (id: string) => void;
 }
 
-const EMAIL = 'info@proficientsabaescapes.com';
+const EMAIL = 'info@proficientsaba.co.zw';
 
 const CONTACTS = [
   { label: 'WhatsApp — Paul', display: '+27 71 756 7996', href: 'https://wa.me/27717567996' },

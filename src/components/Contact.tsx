@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle2, X, MessageCircle } from 'lucide-react';
 
-const EMAIL = 'info@proficientsabaescapes.com';
+const EMAIL = 'info@proficientsaba.co.zw';
 
 const CONTACTS = [
   {
