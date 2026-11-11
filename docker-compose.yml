@@ -1,5 +1,6 @@
 services:
   proficient:
+    build: .
     image: proficient
     container_name: proficient
     ports:
